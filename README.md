@@ -13,9 +13,10 @@
 
 С любой страницы можно перейти на главную и личную страницы
 Режимы:
-*(S) - student
-*(T) - teacher
-*(A) - administrator
+
+* (S) - student
+* (T) - teacher
+* (A) - administrator
 
 <br/>
 
