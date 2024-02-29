@@ -148,6 +148,6 @@
 <br/>
 
 ## Схема базы данных
-![](pic/data_base.png)
+![](pic/data.png)
 
 <br/>
