@@ -7,33 +7,30 @@ import lombok.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "students")
+@Table(name = "schedule")
 public class Student implements CommonEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "cell_id")
     private int id;
 
-    @Column(nullable = false, name = "tc_id")
-    private int tc_id;
+    @Id
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tc_id", referencedColumnName = "id")
+    @NonNull
+    private Teacher_courses teacher_course;
 
-    @Column(name = "st_group")
-    private int group;
-
-    @Column(name = "auditorium_id")
-    private int auditorium_id;
-
-    @Column(nullable = false, name = "weekday")
-    private String weekday;
+    @Id
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auditorium_id", referencedColumnName = "id")
+    @NonNull
+    private Auditorium auditorium;
 
     @Column(nullable = false, name = "time")
     private Time time;
 
-    @Column(name = "average")
-    private String average;
-
-    @Column(name = "portfolio")
-    private String portfolio;
+    @Column(name = "st_group")
+    private int group;
 
     @Override
     public boolean equals(Object o) {
@@ -41,11 +38,10 @@ public class Student implements CommonEntity<Long> {
         if (o == null || getClass() != o.getClass()) return false;
         Student other = (Student) o;
         return Objects.equals(id, other.id)
-                && name.equals(other.name)
-                && Objects.equals(flow, other.flow)
+                && Objects.equals(teacher_course, other.teacher_course)
+                && Objects.equals(auditorium, other.auditorium)
+                && Objects.equals(time, other.time)
                 && Objects.equals(group, other.group)
-                && average.equals(other.average)
-                && year.equals(other.year)
-                && portfolio.equals(other.portfolio)
+                && Objects.equals(year, other.year)
     }
 }

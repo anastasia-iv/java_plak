@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Student_courses implements CommonEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "id")
+    @Column(nullable = false, name = "sc_id")
     private int id;
 
     @Id
