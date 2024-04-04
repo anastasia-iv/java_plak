@@ -14,23 +14,24 @@ public class Schedule implements CommonEntity<Long> {
     @Column(nullable = false, name = "cell_id")
     private int id;
 
-    @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tc_id", referencedColumnName = "id")
+    @JoinColumn(name = "tc_id", referencedColumnName = "tc_id")
     @NonNull
-    private Teacher_courses teacher_course;
+    private Teacher_courses tc_id;
 
-    @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "auditorium_id", referencedColumnName = "id")
+    @JoinColumn(name = "auditorium_id", referencedColumnName = "auditorium_id")
     @NonNull
-    private Auditorium auditorium;
+    private Auditorium auditorium_id;
 
     @Column(nullable = false, name = "time")
     private Time time;
 
     @Column(name = "st_group")
     private int group;
+
+    @Column(name = "year")
+    private int year;
 
     @Override
     public boolean equals(Object o) {

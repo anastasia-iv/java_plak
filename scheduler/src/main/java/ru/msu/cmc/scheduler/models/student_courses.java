@@ -16,13 +16,13 @@ public class Student_courses implements CommonEntity<Long> {
 
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     @NonNull
     private Student students;
 
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     @NonNull
     private Course courses;
 }

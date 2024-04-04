@@ -14,15 +14,13 @@ public class Teacher_courses implements CommonEntity<Long> {
     @Column(nullable = false, name = "tc_id")
     private int id;
 
-    @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     @NonNull
     private Student students;
 
-    @Id
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
     @NonNull
     private Course courses;
 }
