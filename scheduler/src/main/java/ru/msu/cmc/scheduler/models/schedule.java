@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "schedule")
-public class Student implements CommonEntity<Long> {
+public class Schedule implements CommonEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "cell_id")
@@ -36,7 +36,7 @@ public class Student implements CommonEntity<Long> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student other = (Student) o;
+        Schedule other = (Schedule) o;
         return Objects.equals(id, other.id)
                 && Objects.equals(teacher_course, other.teacher_course)
                 && Objects.equals(auditorium, other.auditorium)
