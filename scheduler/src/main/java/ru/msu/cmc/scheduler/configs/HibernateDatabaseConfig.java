@@ -1,4 +1,4 @@
-package ru.msu.cmc.webprak.configs;
+package ru.msu.cmc.scheduler.configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +26,7 @@ public class HibernateDatabaseConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(oraDataSource());
-        sessionFactory.setPackagesToScan("ru.msu.cmc.webprak.models");
+        sessionFactory.setPackagesToScan("ru.msu.cmc.scheduler.models");
 
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
