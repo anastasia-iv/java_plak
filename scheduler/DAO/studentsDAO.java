@@ -10,7 +10,6 @@ public interface StudentDAO extends CommonDAO<Student, Long> {
 
     List<Student> getAllStudentsByName(String studentName);
     Student getSingleStudentByName(String studentName);
-    String getflow(Student student);
     List<Student> getByFilter(Filter filter);
 
     @Builder
