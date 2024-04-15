@@ -5,12 +5,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
-import ru.msu.cmc.webprak.DAO.CommonDAO;
-import ru.msu.cmc.webprak.models.CommonEntity;
+import ru.msu.cmc.scheduler.DAO.CommonDAO;
+import ru.msu.cmc.scheduler.models.CommonEntity;
 
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Serializable> implements CommonDAO<T, ID> {
@@ -18,6 +19,11 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     protected SessionFactory sessionFactory;
 
     protected Class<T> persistentClass;
+    private Class<T> entityClass;
+
+    public void setEntityClass(Class<T> entityClass){
+        this.entityClass = entityClass;
+    }
 
     public CommonDAOImpl(Class<T> entityClass){
         this.persistentClass = entityClass;
@@ -36,7 +42,7 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     }
 
     @Override
-    public Collection<T> getAll() {
+    public List<T> getAll() {
         try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<T> criteriaQuery = session.getCriteriaBuilder().createQuery(persistentClass);
             criteriaQuery.from(persistentClass);
@@ -45,6 +51,7 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     }
 
     @Override
+    @Transactional
     public void save(T entity) {
         try (Session session = sessionFactory.openSession()) {
             if (entity.getId() != null) {
@@ -57,6 +64,7 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     }
 
     @Override
+    @Transactional
     public void saveCollection(Collection<T> entities) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
@@ -68,19 +76,11 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     }
 
     @Override
+    @Transactional
     public void update(T entity) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(entity);
-            session.getTransaction().commit();
-        }
-    }
-
-    @Override
-    public void delete(T entity) {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.delete(entity);
             session.getTransaction().commit();
         }
     }

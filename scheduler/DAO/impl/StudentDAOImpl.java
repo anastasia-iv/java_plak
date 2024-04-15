@@ -13,18 +13,25 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
+
 @Repository
 public class StudentDAOImpl extends CommonDAOImpl<Student, Long> implements StudentDAO {
 
-    public StudentDAOImpl(){
-        super(Student.class);
+    public StudentDAOImpl() {
+        super();
+        setEntityClass(Student.class);
     }
 
     @Override
     public List<Student> getAllStudentByName(String StudentName) {
         try (Session session = sessionFactory.openSession()) {
-            Query<Person> query = session.createQuery("FROM Person WHERE name LIKE :gotName", Student.class)
-                    .setParameter("gotName", likeExpr(StudentName));
+            TypedQuery<Student> query = session.createQuery("FROM Student WHERE name LIKE :gotName", Student.class)
+            query.setParameter("gotName", likeExpr(StudentName));
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }
     }
@@ -37,7 +44,7 @@ public class StudentDAOImpl extends CommonDAOImpl<Student, Long> implements Stud
 
 
     @Override
-    public List<Student> getByFilter(int stGroup, int stFlow, int year) {
+    public List<Student> getStudentByFilter(int stGroup, int stFlow, int year) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Student> criteriaQuery = builder.createQuery(Student.class);
