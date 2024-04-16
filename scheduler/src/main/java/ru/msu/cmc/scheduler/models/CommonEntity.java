@@ -1,6 +1,5 @@
-package ru.msu.cmc.sheduler.models;
+package ru.msu.cmc.scheduler.models;
 
 public interface CommonEntity<ID> {
     ID getId();
-    void setId(ID id);
 }

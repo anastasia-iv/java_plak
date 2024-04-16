@@ -1,18 +1,21 @@
 package ru.msu.cmc.scheduler.models;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.*;
+
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "courses")
-public class Course implements CommonEntity<Long> {
+@Getter
+@Setter
+public class Course implements CommonEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "course_id")
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, name = "course_name")
     private String name;
@@ -39,6 +42,6 @@ public class Course implements CommonEntity<Long> {
                 && type.equals(other.type)
                 && Objects.equals(year, other.year)
                 && Objects.equals(flow, other.flow)
-                && extra_course.equals(other.extra_course)
+                && extra_course.equals(other.extra_course);
     }
 }

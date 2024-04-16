@@ -1,13 +1,13 @@
-package ru.msu.cmc.sheduler;
+package ru.msu.cmc.scheduler;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ShedulerApplication {
+public class SchedulerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShedulerApplication.class, args);
+		SpringApplication.run(SchedulerApplication.class, args);
 	}
 
 }

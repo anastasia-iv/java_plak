@@ -3,13 +3,9 @@ package ru.msu.cmc.scheduler.DAO.impl;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import ru.msu.cmc.scheduler.DAO.StudentDAO;
-import ru.msu.cmc.scheduler.models.Student;
+import ru.msu.cmc.scheduler.DAO.TeacherDAO;
+import ru.msu.cmc.scheduler.models.Teacher;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +16,7 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class TeacherDAOImpl extends CommonDAOImpl<Teacher, Long> implements TeacherDAO {
+public class TeacherDAOImpl extends CommonDAOImpl<Teacher, Integer> implements TeacherDAO {
 
     public TeacherDAOImpl() {
         super();
@@ -30,8 +26,8 @@ public class TeacherDAOImpl extends CommonDAOImpl<Teacher, Long> implements Teac
     @Override
     public List<Teacher> getAllTeacherByName(String TeacherName) {
         try (Session session = sessionFactory.openSession()) {
-            TypedQuery<Teacher> query = session.createQuery("FROM Teacher WHERE name LIKE :gotName", Teacher.class)
-            query.setParameter("gotName", likeExpr(TeacherName));
+            TypedQuery<Teacher> query = session.createQuery("SELECT t FROM Teacher t WHERE t.name = :TeacherName", Teacher.class);
+            query.setParameter("TeacherName", TeacherName);
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }
     }
@@ -46,8 +42,8 @@ public class TeacherDAOImpl extends CommonDAOImpl<Teacher, Long> implements Teac
     @Override
     public List<Teacher> getTeachersByCathedra(String Cathedra) {
         try (Session session = sessionFactory.openSession()) {
-            TypedQuery<Teacher> query = session.createQuery("SELECT Teacher FROM Teacher WHERE Teacher.name = :Cathedra", Teacher.class);
-            query.setParameter("cathedraTeachers", filmTitle);
+            TypedQuery<Teacher> query = session.createQuery("SELECT Teacher FROM Teacher WHERE Teacher.cathedra = :Cathedra", Teacher.class);
+                query.setParameter("Cathedra", Cathedra);
             return query.getResultList();
         }
     }

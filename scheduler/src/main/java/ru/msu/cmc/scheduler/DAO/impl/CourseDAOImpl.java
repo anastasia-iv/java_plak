@@ -1,26 +1,16 @@
 package ru.msu.cmc.scheduler.DAO.impl;
 
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import ru.msu.cmc.scheduler.DAO.CourseDAO;
 import ru.msu.cmc.scheduler.models.Course;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.Session;
 
 import jakarta.persistence.TypedQuery;
 
-import java.util.List;
-
 @Repository
-public class CourseDAOImpl extends CommonDAOImpl<Course, Long> implements CourseDAO {
+public class CourseDAOImpl extends CommonDAOImpl<Course, Integer> implements CourseDAO {
 
     public CourseDAOImpl() {
         super();
@@ -28,17 +18,17 @@ public class CourseDAOImpl extends CommonDAOImpl<Course, Long> implements Course
     }
 
     @Override
-    public List<Course> getAllCourseByName(String CourseName) {
+    public List<Course> getAllCoursesByName(String CourseName) {
         try (Session session = sessionFactory.openSession()) {
-            TypedQuery<Course> query = session.createQuery("FROM Course WHERE name LIKE :gotName", Course.class)
-            query.setParameter("gotName", likeExpr(CourseName));
-            return query.getResultList().size() == 0 ? null : query.getResultList();
+            TypedQuery<Course> query = session.createQuery("SELECT c FROM Course c WHERE c.name = :CourseName", Course.class);
+            query.setParameter("CourseName", CourseName);
+            return query.getResultList().isEmpty() ? null : query.getResultList();
         }
     }
 
     @Override
     public Course getSingleCourseByName(String CourseName) {
-        List<Course> candidates = this.getAllCourseByName(CourseName);
+        List<Course> candidates = this.getAllCoursesByName(CourseName);
         return candidates == null ? null : candidates.get(0);
     }
 

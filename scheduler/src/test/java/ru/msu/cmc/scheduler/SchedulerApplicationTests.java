@@ -1,10 +1,10 @@
-package ru.msu.cmc.sheduler;
+package ru.msu.cmc.scheduler;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ShedulerApplicationTests {
+class SchedulerApplicationTests {
 
 	@Test
 	void contextLoads() {

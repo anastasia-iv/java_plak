@@ -1,18 +1,19 @@
 package ru.msu.cmc.scheduler.models;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Objects;
 
 @Entity
 @Table(name = "auditorium")
-public class Auditorium implements CommonEntity<Long> {
+@Getter
+@Setter
+public class Auditorium implements CommonEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "auditorium_id")
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, name = "auditorium_name")
     private String name;
@@ -27,6 +28,6 @@ public class Auditorium implements CommonEntity<Long> {
         Auditorium other = (Auditorium) o;
         return Objects.equals(id, other.id)
                 && name.equals(other.name)
-                && Objects.equals(capacity, other.capacity)
+                && Objects.equals(capacity, other.capacity);
     }
 }

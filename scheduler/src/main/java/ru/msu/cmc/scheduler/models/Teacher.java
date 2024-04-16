@@ -1,18 +1,20 @@
 package ru.msu.cmc.scheduler.models;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher implements CommonEntity<Long> {
+@Getter
+@Setter
+public class Teacher implements CommonEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "teacher_id")
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, name = "teacher_name")
     private String name;
@@ -35,6 +37,6 @@ public class Teacher implements CommonEntity<Long> {
                 && name.equals(other.name)
                 && mail.equals(other.mail)
                 && cathedra.equals(other.cathedra)
-                && academic_title.equals(other.academic_title)
+                && academic_title.equals(other.academic_title);
     }
 }

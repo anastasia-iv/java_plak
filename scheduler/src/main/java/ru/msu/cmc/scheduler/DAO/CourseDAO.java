@@ -6,7 +6,7 @@ import ru.msu.cmc.scheduler.models.Course;
 
 import java.util.List;
 
-public interface CourseDAO extends CommonDAO<Course, Long> {
+    public interface CourseDAO extends CommonDAO<Course, Integer> {
 
     List<Course> getAllCoursesByName(String CourseName);
 

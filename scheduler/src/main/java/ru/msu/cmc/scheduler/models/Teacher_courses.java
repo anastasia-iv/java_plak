@@ -1,21 +1,22 @@
 package ru.msu.cmc.scheduler.models;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.*;
-import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "students_courses")
-public class Student_courses implements CommonEntity<Long> {
+@Table(name = "teacher_courses")
+@Getter
+@Setter
+public class Teacher_courses implements CommonEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "sc_id")
-    private int id;
+    @Column(nullable = false, name = "tc_id")
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
+    @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     @NonNull
     private Student students;
 
