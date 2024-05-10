@@ -1,5 +1,6 @@
 package ru.msu.cmc.scheduler.DAO.impl;
-
+import ru.msu.cmc.scheduler.models.*;
+import ru.msu.cmc.scheduler.utils.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import jakarta.persistence.TypedQuery;
+import ru.msu.cmc.scheduler.utils.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class TeacherDAOImpl extends CommonDAOImpl<Teacher, Integer> implements T
 
     @Override
     public List<Teacher> getAllTeacherByName(String TeacherName) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             TypedQuery<Teacher> query = session.createQuery("SELECT t FROM Teacher t WHERE t.name = :TeacherName", Teacher.class);
             query.setParameter("TeacherName", TeacherName);
             return query.getResultList().size() == 0 ? null : query.getResultList();
@@ -41,7 +43,7 @@ public class TeacherDAOImpl extends CommonDAOImpl<Teacher, Integer> implements T
 
     @Override
     public List<Teacher> getTeachersByCathedra(String Cathedra) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             TypedQuery<Teacher> query = session.createQuery("SELECT Teacher FROM Teacher WHERE Teacher.cathedra = :Cathedra", Teacher.class);
                 query.setParameter("Cathedra", Cathedra);
             return query.getResultList();

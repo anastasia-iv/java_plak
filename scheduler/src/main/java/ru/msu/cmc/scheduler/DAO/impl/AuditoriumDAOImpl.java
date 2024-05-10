@@ -1,5 +1,6 @@
 package ru.msu.cmc.scheduler.DAO.impl;
-
+import ru.msu.cmc.scheduler.models.*;
+import ru.msu.cmc.scheduler.utils.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import jakarta.transaction.Transactional;

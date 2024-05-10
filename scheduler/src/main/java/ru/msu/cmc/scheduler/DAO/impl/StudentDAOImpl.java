@@ -1,4 +1,7 @@
 package ru.msu.cmc.scheduler.DAO.impl;
+import ru.msu.cmc.scheduler.models.*;
+import ru.msu.cmc.scheduler.utils.*;
+import org.hibernate.Transaction;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -25,7 +28,7 @@ public class StudentDAOImpl extends CommonDAOImpl<Student, Integer> implements S
 
     @Override
     public List<Student> getAllStudentsByName(String StudentName) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             TypedQuery<Student> query = session.createQuery("SELECT st FROM Student st WHERE st.name = :StudentName", Student.class);
             query.setParameter("StudentName", StudentName);
             return query.getResultList().size() == 0 ? null : query.getResultList();
@@ -41,7 +44,7 @@ public class StudentDAOImpl extends CommonDAOImpl<Student, Integer> implements S
 
     @Override
     public List<Student> getStudentByFilter(int stGroup, int stFlow, int year) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             TypedQuery<Student> query = session.createQuery("SELECT st FROM Student st WHERE st.group = :stGroup AND st.flow = :stFlow AND st.year = :year", Student.class);
             query.setParameter("stGroup", stGroup);
             query.setParameter("stFlow", stFlow);

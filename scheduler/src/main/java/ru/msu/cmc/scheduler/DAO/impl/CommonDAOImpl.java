@@ -1,6 +1,8 @@
 package ru.msu.cmc.scheduler.DAO.impl;
-
+import ru.msu.cmc.scheduler.models.*;
+import ru.msu.cmc.scheduler.utils.*;
 import jakarta.persistence.criteria.CriteriaQuery;
+import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import ru.msu.cmc.scheduler.DAO.CommonDAO;
 import ru.msu.cmc.scheduler.models.CommonEntity;
 
 import jakarta.transaction.Transactional;
+import ru.msu.cmc.scheduler.utils.HibernateSessionFactoryUtil;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,16 +22,13 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
     @Autowired
     protected SessionFactory sessionFactory;
 
+    @Setter
     private Class<T> entityClass;
-
-    public void setEntityClass(Class<T> entityClass){
-        this.entityClass = entityClass;
-    }
 
     @Override
     @Transactional
     public void save(T entity) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             session.beginTransaction();
             session.merge(entity);
             session.getTransaction().commit();
@@ -38,7 +38,7 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
     @Override
     @Transactional
     public void update(T entity) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             session.beginTransaction();
             session.merge(entity);
             session.getTransaction().commit();
@@ -48,7 +48,7 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
     @Override
     @Transactional
     public void delete(T entity) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             session.beginTransaction();
             session.remove(entity);
             session.getTransaction().commit();
@@ -58,7 +58,7 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
     @Override
     @Transactional
     public void saveCollection(Collection<T> entities) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             session.beginTransaction();
             for (T entity : entities) {
                 this.save(entity);
@@ -69,14 +69,14 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
 
     @Override
     public T getById(ID id) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             return session.get(entityClass, (Serializable) id);
         }
     }
 
     @Override
     public List<T> getAll() {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().getCurrentSession();) {
             CriteriaQuery<T> criteriaQuery = session.getCriteriaBuilder().createQuery(entityClass);
             criteriaQuery.from(entityClass);
             return session.createQuery(criteriaQuery).getResultList();

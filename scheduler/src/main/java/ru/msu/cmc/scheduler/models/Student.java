@@ -52,6 +52,10 @@ public class Student implements CommonEntity<Integer> {
         this.portfolio = portfolio;
     }
 
+    public Student() {
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

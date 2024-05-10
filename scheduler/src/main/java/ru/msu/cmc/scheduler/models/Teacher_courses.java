@@ -18,7 +18,7 @@ public class Teacher_courses implements CommonEntity<Integer> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
     @NonNull
-    private Student students;
+    private Teacher teacher;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
