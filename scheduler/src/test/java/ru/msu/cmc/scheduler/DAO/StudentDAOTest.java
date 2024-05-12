@@ -43,6 +43,7 @@ public class StudentDAOTest {
         studentList.add(new Student(46, "Федорова Анна Дмитриевна", 1, 327, 2003, 5.00F, "Иванниковские чтения"));
         studentList.add(new Student(47, "Латыпова Аделина Ильнуровна", 2, 327, null, 5.00F, "Победитель олимпиады Физтех по математике"));
         studentDAO.saveCollection(studentList);
+
         List<Student> studentListAll = (List<Student>) studentDAO.getAll();
         assertEquals(48, studentListAll.size());
 
@@ -58,6 +59,7 @@ public class StudentDAOTest {
 
         Student platon = studentDAO.getById(11);
         assertEquals("Беспалов Платон Никитович", platon.getName());
+
     }
 
     @Test

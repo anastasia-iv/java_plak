@@ -11,7 +11,6 @@ import ru.msu.cmc.scheduler.utils.HibernateSessionFactoryUtil;
 import java.util.List;
 
 @Repository
-
 public class StudentDAOImpl extends CommonDAOImpl<Student, Integer> implements StudentDAO {
 
     public StudentDAOImpl() {

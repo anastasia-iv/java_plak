@@ -11,6 +11,4 @@ public class AuditoriumDAOImpl extends CommonDAOImpl<Auditorium, Integer> implem
         super();
         setEntityClass(Auditorium.class);
     }
-
-
 }
