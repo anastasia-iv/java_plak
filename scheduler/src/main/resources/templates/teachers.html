@@ -1,51 +1,55 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <title>Люди</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style>
         .indent {
-            margin-left: 30px;
+            margin-left:a 30px;
             margin-right: 30px;
             margin-top: 20px;
         }
     </style>
-    <title>Информация о преподавателе</title>
 </head>
-
 <body>
 <div th:replace="general :: page-header"> </div>
 
 <div class="indent">
-    <div id="teacherInfo">
-        <!--/*@thymesVar id="getName" type=""*/-->
-        <h4 th:text="${Teacher.getName()}"></h4>
-        <p th:if="${Teacher.getName() != null}" th:text="'Имя: ' + ${Teacher.getName()}"></p>
-        <p th:if="${Teacher.getMail() != null}" th:text="'Почта: ' + ${Teacher.getMail()}"></p>
-        <p th:if="${Teacher.getCathedra() != null}" th:text="'Кафедра: ' + ${Teacher.getCathedra()()}"></p>
-        <p th:if="${Teacher.academic_title() != null}" th:text="'Академический титул: ' + ${Teacher.academic_title()}"></p>
+    <form method="get" action="/editTeacher">
+        <button id="addTeacherButton" type="submit" class="btn btn-primary">Добавить преподавателя</button>
+    </form>
+    <br>
 
-    </div>
+    <table class="table table-bordered table-warning">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Полное имя</th>
+            <th scope="col"> Почта</th>
+            <th scope="col"> Кафедра</th>
+            <th scope="col"> Академический титул</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${teachers.isEmpty()}">
+            <td colspan="6"> В базе пока нет ни одного преподавателя. <a href="/editTeacher">Добавить?</a></td>
+        </tr>
+        <tr th:each="teacher : ${teachers}">
+            <td>
+                <a th:href="'/teacher?teacherId=' + ${teacher.getId()}">
+                    <span th:text="${teacher.getName()}"> </span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${teacherService.getMail(teacher)}"> </span>
+            </td>
+        </tr>
 
-    <!--edit delete order button group-->
-    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-            <form style="margin-right: 30px" method="get" action="/editPerson">
-                <input type="hidden" name="TeacherId" th:value="${Teacher.getId()}"/>
-                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию о преподавателе</button>
-            </form>
-<!--            <form method="post" action="/removePerson">-->
-<!--                <input type="hidden" name="personId" th:value="${person.getId()}"/>-->
-<!--                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить преподавателя из базы</button>-->
-<!--            </form>-->
-        </div>
-    </div>
-    <!--end of button group-->
-
+        </tbody>
+    </table>
 </div>
 
-<div th:replace="general :: site-footer"></div>
 <div th:replace="general :: site-script"></div>
 
 </body>
