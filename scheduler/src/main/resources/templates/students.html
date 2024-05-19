@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Преподаватели</title>
+    <title>Студенты</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -17,37 +17,49 @@
 <div th:replace="general :: page-header"> </div>
 
 <div class="indent">
-    <form method="get" action="/editTeacher">
-        <button id="addTeacherButton" type="submit" class="btn btn-primary">Добавить преподавателя</button>
-    </form>
-    <br>
+
     <table class="table table-bordered table-warning">
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Полное имя</th>
-            <th scope="col"> Почта</th>
+            <th scope="col"> Поток</th>
+            <th scope="col"> Группа</th>
+            <th scope="col"> Год</th>
+            <th scope="col"> Средний балл</th>
+            <th scope="col"> Портфолио</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${teachers.isEmpty()}">
-            <td colspan="6"> В базе пока нет ни одного преподавателя. <a href="/editTeacher">Добавить?</a></td>
+        <tr th:if="${students.isEmpty()}">
+            <td colspan="6"> В базе пока нет ни одного студента. <a href="/editStudent">Добавить?</a></td>
         </tr>
-        <tr th:each="teacher : ${teachers}">
+        <tr th:each="student : ${students}">
             <td>
-                <a th:href="'/teacher?teacherId=' + ${teacher.getId()}">
-                    <span th:text="${teacher.getName()}"> </span>
+                <a th:href="'/student?studentId=' + ${student.getId()}">
+                    <span th:text="${student.getName()}"> </span>
                 </a>
             </td>
             <td>
-                <span th:text="${teacher.getMail()}"> </span>
+                <span th:text="${student.getGroup()}"> </span>
             </td>
         </tr>
 
         </tbody>
     </table>
+
+    <br>
+    <form method="get" action="/editStudent">
+        <button id="addStudentButton" type="submit" class="btn btn-primary">Добавить студента</button>
+    </form>
 </div>
 
 <div th:replace="general :: site-script"></div>
 
-</body>
-</html>
+</body> 
+</html> 
+
+
+<!--_   _-->
+<!--G(0  0)D-->
+<!-- | /\ |-->
+<!-- \____/-->

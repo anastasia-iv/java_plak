@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Преподаватели</title>
+    <title>Аудитории</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -18,28 +18,28 @@
 
 <div class="indent">
     <form method="get" action="/editTeacher">
-        <button id="addTeacherButton" type="submit" class="btn btn-primary">Добавить преподавателя</button>
+        <button id="addTeacherButton" type="submit" class="btn btn-primary">Добавить аудиторию</button>
     </form>
     <br>
     <table class="table table-bordered table-warning">
         <thead class="thead-dark">
         <tr>
-            <th scope="col"> Полное имя</th>
-            <th scope="col"> Почта</th>
+            <th scope="col"> Номер аудитории</th>
+            <th scope="col"> Вместимость</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${teachers.isEmpty()}">
-            <td colspan="6"> В базе пока нет ни одного преподавателя. <a href="/editTeacher">Добавить?</a></td>
+        <tr th:if="${auditoriums.isEmpty()}">
+            <td colspan="6"> В базе отсутствует информация об аудиториях. <a href="/editTeacher">Добавить?</a></td>
         </tr>
-        <tr th:each="teacher : ${teachers}">
+        <tr th:each="auditorium : ${auditoriums}">
             <td>
-                <a th:href="'/teacher?teacherId=' + ${teacher.getId()}">
-                    <span th:text="${teacher.getName()}"> </span>
+                <a th:href="'/auditorium?auditoriumId=' + ${auditorium.getId()}">
+                    <span th:text="${auditorium.getName()}"> </span>
                 </a>
             </td>
             <td>
-                <span th:text="${teacher.getMail()}"> </span>
+                <span th:text="${auditorium.getCapacity()}"> </span>
             </td>
         </tr>
 

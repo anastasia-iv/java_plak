@@ -23,7 +23,7 @@ public class TeacherController {
         List<Teacher> teachers = (List<Teacher>) teacherDAO.getAll();
         model.addAttribute("teachers", teachers);
         model.addAttribute("teacherService", teacherDAO);
-        return "teacher";
+        return "teachers";
     }
 
     @GetMapping("/teacher")
@@ -32,7 +32,7 @@ public class TeacherController {
 
         if (teacher == null) {
             model.addAttribute("error_msg", "В базе нет преподавателя с ID = " + teacherId);
-            return "errorPage";
+            return "error";
         }
 
         model.addAttribute("teacher", teacher);
@@ -52,7 +52,7 @@ public class TeacherController {
 
         if (teacher == null) {
             model.addAttribute("error_msg", "В базе нет человека с ID = " + teacherId);
-            return "errorPage";
+            return "error";
         }
 
         model.addAttribute("teacher", teacher);
@@ -80,7 +80,7 @@ public class TeacherController {
         }
 
         model.addAttribute("error_msg", "Данные не сохранены");
-        return "errorPage";
+        return "error";
     }
 
 //    @PostMapping("/removeTeacher")

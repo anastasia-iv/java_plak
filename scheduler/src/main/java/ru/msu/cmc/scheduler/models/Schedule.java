@@ -25,14 +25,39 @@ public class Schedule implements CommonEntity<Integer> {
     @JoinColumn(name = "auditorium_id", referencedColumnName = "auditorium_id")
     private Auditorium auditorium_id;
 
+    @Column(nullable = false, name = "weekday")
+    private String weekday;
+
     @Column(nullable = false, name = "time")
     private Time time;
 
-    @Column(name = "st_group")
-    private Integer group;
+    @Column(nullable = false, name = "sh_group")
+    private Integer sh_group;
 
     @Column(name = "year")
     private Integer year;
+
+    public Schedule(
+            Integer id,
+            Teacher_courses tc_id,
+            Auditorium auditorium_id,
+            String weekday,
+            Time time,
+            Integer sh_group,
+            Integer year
+    ) {
+        this.id = id;
+        this.tc_id = tc_id;
+        this.auditorium_id = auditorium_id;
+        this.weekday = weekday;
+        this.time = time;
+        this.sh_group = sh_group;
+        this.year = year;
+    }
+
+    public Schedule() {
+
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,8 +67,9 @@ public class Schedule implements CommonEntity<Integer> {
         return Objects.equals(id, other.id)
                 && Objects.equals(tc_id, other.tc_id)
                 && Objects.equals(auditorium_id, other.auditorium_id)
+                && Objects.equals(weekday, other.weekday)
                 && Objects.equals(time, other.time)
-                && Objects.equals(group, other.group)
+                && Objects.equals(sh_group, other.sh_group)
                 && Objects.equals(year, other.year);
     }
 }
