@@ -18,21 +18,21 @@
 <div th:replace="general :: page-header"> </div>
 
 <div class="indent">
-    <div id="auditoriumInfo">
-        <h4 th:text="${auditorium.getName()}"></h4>
-        <p th:if="${auditorium.getName() != null}" th:text="'Номер: ' + ${auditorium.getName()}"></p>
-        <p th:if="${auditorium.getCapacity() != null}" th:text="'Вместимость: ' + ${auditorium.getCapacity()}"></p>
+    <div id="scheduleInfo">
+        <h4 th:text="${schedule.getName()}"></h4>
+        <p th:if="${schedule.getName() != null}" th:text="'Номер: ' + ${schedule.getName()}"></p>
+        <p th:if="${schedule.getCapacity() != null}" th:text="'Вместимость: ' + ${schedule.getCapacity()}"></p>
     </div>
 
     <!--edit delete order button group-->
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-            <form style="margin-right: 30px" method="get" action="/editAuditorium">
-                <input type="hidden" name="auditoriumId" th:value="${auditorium.getId()}"/>
+            <form style="margin-right: 30px" method="get" action="/editSchedule">
+                <input type="hidden" name="scheduleId" th:value="${schedule.getId()}"/>
                 <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию об аудитории</button>
             </form>
-            <!--            <form method="post" action="/removeAuditorium">-->
-            <!--                <input type="hidden" name="auditoriumId" th:value="${auditorium.getId()}"/>-->
+            <!--            <form method="post" action="/removeSchedule">-->
+            <!--                <input type="hidden" name="scheduleId" th:value="${schedule.getId()}"/>-->
             <!--                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить преподавателя из базы</button>-->
             <!--            </form>-->
         </div>

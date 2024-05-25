@@ -25,7 +25,7 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Номер аудитории</th>
-            <th scope="col"> Вместимость</th>
+            <th scope="col"> Тип </th>
         </tr>
         </thead>
         <tbody>
@@ -35,11 +35,11 @@
         <tr th:each="auditorium : ${auditoriums}">
             <td>
                 <a th:href="'/auditorium?auditoriumId=' + ${auditorium.getId()}">
-                    <span th:text="${auditorium.getName()}"> </span>
+                    <span th:text="${auditorium.getId()}"> </span>
                 </a>
             </td>
             <td>
-                <span th:text="${auditorium.getCapacity()}"> </span>
+                <span th:text="${auditorium.getName()}"> </span>
             </td>
         </tr>
 
