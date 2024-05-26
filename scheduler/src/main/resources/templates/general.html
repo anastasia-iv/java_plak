@@ -44,63 +44,6 @@
 <!--end of page header-->
 
 
-<div class="indent">
-    <br>
-    <table class="table table-bordered table-warning">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col"> День недели</th>
-            <th scope="col"> Время </th>
-            <th scope="col"> Курс</th>
-            <th scope="col"> Преподаватель</th>
-            <th scope="col"> Аудитория</th>
-            <th scope="col"> Группа</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${schedules.isEmpty()}">
-            <td colspan="6"> Нет расписания на сегодня. <a href="/editSchedule">Добавить?</a></td>
-        </tr>
-        <tr th:each="schedule : ${schedules}">
-            <td>
-                <a th:href="'/schedule?scheduleId=' + ${schedule.getId()}">
-                    <span th:text="${schedule.getId()}"> </span>
-                </a>
-            </td>
-            <td>
-                <span th:text="${schedule.getWeekday()}"> </span>
-            </td>
-            <td>
-                <span th:text="${schedule.getTime()}"> </span>
-            </td>
-            <td>
-                <a th:href="'/course?courseId=' + ${schedule.getTc_id.course}">
-                    <span th:text="${schedule.getTc_id.course}"> </span>
-                </a>
-            </td>
-            <td>
-                <span th:text="${schedule.getTc_id()}"> </span>
-            </td>
-            <td>
-                <a th:href="'/auditorium?auditoriumId=' + ${schedule.getAuditorium_id()}">
-                    <span th:text="${schedule.getAuditorium_id()}"> </span>
-                </a>
-            </td>
-            <td>
-                <span th:text="${schedule.getAuditorium_id()}"> </span>
-            </td>
-            <td>
-                <span th:text="${schedule.getSh_group()}"> </span>
-            </td>
-        </tr>
-        </tbody>
-
-        <form method="get" action="/editSchedule">
-            <button id="addScheduleButton" type="submit" class="btn btn-primary">Добавить ячейку расписания</button>
-        </form>
-    </table>
-</div>
-
 <div th:fragment="site-footer" class="fixed-bottom indent">
     <p>
         Расписание для студентов и сотрудников факультета Вычислительной математики и Кибернетики

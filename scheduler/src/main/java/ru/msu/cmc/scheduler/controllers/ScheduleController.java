@@ -21,12 +21,12 @@ public class ScheduleController {
     @Autowired
     private final ScheduleDAO scheduleDAO = new ScheduleDAOImpl();
 
-    @GetMapping("/general")
+    @GetMapping("/index")
     public String schedulelistPage(Model model) {
         List<Schedule> schedules = (List<Schedule>) scheduleDAO.getAll();
         model.addAttribute("schedules", schedules);
         model.addAttribute("scheduleService", scheduleDAO);
-        return "general";
+        return "index";
     }
 
     @GetMapping("/schedule")

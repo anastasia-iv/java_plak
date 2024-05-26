@@ -143,6 +143,58 @@
     <div th:replace="general :: site-footer"></div>
 </div>
 
+<div class="indent">
+    <br>
+    <table class="table table-bordered table-warning">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> День недели</th>
+            <th scope="col"> Время </th>
+            <th scope="col"> Курс</th>
+            <th scope="col"> Преподаватель</th>
+            <th scope="col"> Аудитория</th>
+            <th scope="col"> Группа</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${schedules == null or schedules.isEmpty()}">
+            <td colspan="6"> Нет расписания на сегодня. <a href="/editSchedule">Добавить?</a></td>
+        </tr>
+        <tr th:each="schedule : ${schedules}">
+            <td>
+                <a th:href="'/schedule?scheduleId=' + ${schedule.getId()}">
+                    <span th:text="${schedule.getId()}"> </span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${schedule.getWeekday()}"> </span>
+            </td>
+            <td>
+                <span th:text="${schedule.getTime()}"> </span>
+            </td>
+            <td>
+                <a th:href="'/course?courseId=' + ${schedule.getTc_id.getCourse()}">
+                    <span th:text="${schedule.getTc_id.getCourse().getName()}"> </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="'/auditorium?auditoriumId=' + ${schedule.getAuditorium_id().getId()}">
+                    <span th:text="${schedule.getAuditorium_id().getId()}"> </span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${schedule.getSh_group()}"> </span>
+            </td>
+        </tr>
+        </tbody>
+
+        <form method="get" action="/editSchedule">
+            <button id="addScheduleButton" type="submit" class="btn btn-primary">Добавить ячейку расписания</button>
+        </form>
+    </table>
+</div>
+
+
 <div th:replace="general :: site-script"></div>
 
 </body>

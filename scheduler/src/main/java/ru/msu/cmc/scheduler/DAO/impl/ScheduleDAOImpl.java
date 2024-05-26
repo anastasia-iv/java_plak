@@ -50,7 +50,7 @@ public class ScheduleDAOImpl extends CommonDAOImpl<Schedule, Integer> implements
 
     @Override
     @Transactional
-    public List<Schedule> getScheduleByFilter(int weekday, int sh_group, int year) {
+    public List<Schedule> getScheduleByFilter(String weekday, int sh_group, int year) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();) {
             TypedQuery<Schedule> query = session.createQuery("SELECT st FROM Schedule st WHERE st.weekday = :weekday AND st.sh_group = :sh_group AND st.year = :year", Schedule.class);
             query.setParameter("weekday", weekday);
