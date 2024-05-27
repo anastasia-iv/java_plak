@@ -11,7 +11,7 @@
             margin-top: 20px;
         }
     </style>
-    <title>Информация об аудитории</title>
+    <title>Содержимое ячейки расписания</title>
 </head>
 
 <body>
@@ -19,9 +19,14 @@
 
 <div class="indent">
     <div id="scheduleInfo">
-        <h4 th:text="${schedule.getName()}"></h4>
-        <p th:if="${schedule.getName() != null}" th:text="'Номер: ' + ${schedule.getName()}"></p>
-        <p th:if="${schedule.getCapacity() != null}" th:text="'Вместимость: ' + ${schedule.getCapacity()}"></p>
+        <h4 th:text="${schedule.getId()}"></h4>
+        <p th:if="${schedule.getTc_id() != null}" th:text="'Название курса: ' + ${schedule.getTc_id.getCourse().getName()}"></p>
+        <p th:if="${schedule.getTc_id() != null}" th:text="'Имя преподавателя: ' + ${schedule.getTc_id.getTeacher().getName()}"></p>
+        <p th:if="${schedule.getTime() != null}" th:text="'Время: ' + ${schedule.getTime()}"></p>
+        <p th:if="${schedule.getWeekday() != null}" th:text="'День недели: ' + ${schedule.getWeekday()}"></p>
+        <p th:if="${schedule.getSh_group() != null}" th:text="'Группа: ' + ${schedule.getSh_group()}"></p>
+        <p th:if="${schedule.getAuditorium_id() != null}" th:text="'Аудитория: ' + ${schedule.getAuditorium_id().getName()}"></p>
+        <p th:if="${schedule.getYear() != null}" th:text="'Курс: ' + ${schedule.getYear()}"></p>
     </div>
 
     <!--edit delete order button group-->
@@ -29,7 +34,7 @@
         <div class="btn-group mr-2" role="group" aria-label="First group">
             <form style="margin-right: 30px" method="get" action="/editSchedule">
                 <input type="hidden" name="scheduleId" th:value="${schedule.getId()}"/>
-                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию об аудитории</button>
+                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать содержимое ячейки расписания</button>
             </form>
             <!--            <form method="post" action="/removeSchedule">-->
             <!--                <input type="hidden" name="scheduleId" th:value="${schedule.getId()}"/>-->

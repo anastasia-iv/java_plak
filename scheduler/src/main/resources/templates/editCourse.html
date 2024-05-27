@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Редактирование информации о курсе</title>
 </head>
 <body>
+
+<div th:replace="general :: page-header"></div>
+
+<div class="indent">
+    <form method="post" action="/saveCourse">
+        <input type="hidden" name="courseId" th:value="${course.id}"/>
+        <div class="form-group">
+            <label for="name">Название</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${course.name}" required/>
+        </div>
+        <div class="form-group">
+            <label for="type">Тип</label>
+            <input type="text" class="form-control" id="type" name="type" th:value="${course.type}" required/>
+        </div>
+        <div class="form-group">
+            <label for="year">Курс</label>
+            <input type="number" class="form-control" id="year" name="year" th:value="${course.year}"/>
+        </div>
+        <div class="form-group">
+            <label for="flow">Поток</label>
+            <input type="number" class="form-control" id="flow" name="flow" th:value="${course.flow}"/>
+        </div>
+        <div class="form-group">
+            <label for="extra_course">Является ли дополнительным</label>
+            <input type="text" step="0.01" class="form-control" id="extra_course" name="extra_course" th:value="${course.extra_course}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
 
 </body>
 </html>

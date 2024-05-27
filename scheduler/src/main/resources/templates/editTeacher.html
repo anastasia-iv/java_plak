@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Редактирование информации о студенте</title>
 </head>
 <body>
+
+<div th:replace="general :: page-header"></div>
+
+<div class="indent">
+    <form method="post" action="/saveTeacher">
+        <input type="hidden" name="studentId" th:value="${teacher.id}"/>
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${teacher.name}" required/>
+        </div>
+        <div class="form-group">
+            <label for="mail">Почта</label>
+            <input type="text" class="form-control" id="mail" name="mail" th:value="${teacher.mail}" required/>
+        </div>
+        <div class="form-group">
+            <label for="cathedra">Кафедра</label>
+            <input type="text" class="form-control" id="cathedra" name="cathedra" th:value="${teacher.cathedra}"/>
+        </div>
+        <div class="form-group">
+            <label for="academic_title">Академический титул</label>
+            <input type="text" class="form-control" id="academic_title" name="academic_title" th:value="${teacher.academic_title}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
 
 </body>
 </html>

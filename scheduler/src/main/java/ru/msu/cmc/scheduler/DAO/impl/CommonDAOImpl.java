@@ -43,15 +43,15 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
         }
     }
 
-    @Override
-    @Transactional
-    public void delete(T entity) {
-        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();) {
-            session.beginTransaction();
-            session.remove(entity);
-            session.getTransaction().commit();
-        }
-    }
+//    @Override
+//    @Transactional
+//    public void delete(T entity) {
+//        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();) {
+//            session.beginTransaction();
+//            session.remove(entity);
+//            session.getTransaction().commit();
+//        }
+//    }
 
     @Override
     @Transactional

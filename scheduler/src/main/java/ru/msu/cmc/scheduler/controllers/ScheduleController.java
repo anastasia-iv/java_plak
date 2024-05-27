@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.msu.cmc.scheduler.DAO.ScheduleDAO;
-import ru.msu.cmc.scheduler.DAO.impl.ScheduleDAOImpl;
-import ru.msu.cmc.scheduler.models.Auditorium;
-import ru.msu.cmc.scheduler.models.Schedule;
-import ru.msu.cmc.scheduler.models.Teacher_courses;
+import ru.msu.cmc.scheduler.DAO.impl.*;
+import ru.msu.cmc.scheduler.models.*;
+import ru.msu.cmc.scheduler.DAO.TeacherDAO;
+import ru.msu.cmc.scheduler.DAO.AuditoriumDAO;
+import ru.msu.cmc.scheduler.DAO.CourseDAO;
+import ru.msu.cmc.scheduler.DAO.Teacher_coursesDAO;
+
 
 import java.sql.Time;
 import java.util.List;
@@ -64,30 +67,56 @@ public class ScheduleController {
     }
 
     @PostMapping("/saveSchedule")
-    public String saveSchedulePage(@RequestParam(name = "scheduleId") Integer scheduleId,
-                                   @RequestParam(name = "tc_id") Teacher_courses tc_id,
-                                   @RequestParam(name = "auditorium_id") Auditorium auditorium_id,
-                                 @RequestParam(name = "weekday") String weekday,
-                                 @RequestParam(name = "time") Time time,
-                                 @RequestParam(name = "sh_group", required = false) Integer sh_group,
-                                 @RequestParam(name = "year", required = false) Integer year,
-                                 Model model) {
-        Schedule schedule = scheduleDAO.getById(scheduleId);
-        boolean changeIsSuccessful = false;
+    public String saveSchedulePage(@RequestParam(name = "cellId", required = false) Integer cellId,
+                                   @RequestParam(name = "weekday") String weekday,
+                                   @RequestParam(name = "time") String time,
+                                   @RequestParam(name = "teacherId") Integer teacherId,
+                                   @RequestParam(name = "courseId") Integer courseId,
+                                   @RequestParam(name = "auditoriumId") Integer auditoriumId,
+                                   @RequestParam(name = "group") Integer group,
+                                   Model model) {
 
-        if (schedule != null) {
-            schedule.setTc_id(tc_id);
-            schedule.setAuditorium_id(auditorium_id);
-            schedule.setWeekday(weekday);
-            schedule.setSh_group(sh_group);
-            schedule.setYear(year);
+        Schedule schedule;
+        if (cellId != null) {
+            schedule = scheduleDAO.getById(cellId);
+            if (schedule == null) {
+                model.addAttribute("error_msg", "В базе нет расписания с ID = " + cellId);
+                return "error";
+            }
         } else {
-            schedule = new Schedule(scheduleId, tc_id, auditorium_id, weekday, time, sh_group, year);
+            schedule = new Schedule();
+        }
+        Teacher_coursesDAO teacherCoursesDAO = new Teacher_coursesDAOImpl();
+        TeacherDAO teacherDAO = new TeacherDAOImpl();
+        CourseDAO courseDAO = new CourseDAOImpl();
+        AuditoriumDAO auditoriumDAO = new AuditoriumDAOImpl();
+
+        Teacher teacher = teacherDAO.getById(teacherId);
+        Course course = courseDAO.getById(courseId);
+        Auditorium auditorium = auditoriumDAO.getById(auditoriumId);
+
+        if (teacher == null || course == null || auditorium == null) {
+            model.addAttribute("error_msg", "Неверные ID преподавателя, курса или аудитории");
+            return "error";
         }
 
-        model.addAttribute("error_msg", "Данные не сохранены");
-        return "error";
+        Teacher_courses teacherCourse = teacherCoursesDAO.findByTeacherAndCourse(teacher, course);
+        if (teacherCourse == null) {
+            teacherCourse = new Teacher_courses(null, teacher, course);
+            teacherCoursesDAO.save(teacherCourse);
+        }
+
+        schedule.setWeekday(weekday);
+        schedule.setTime(Time.valueOf(time));
+        schedule.setTc_id(teacherCourse);
+        schedule.setAuditorium_id(auditorium);
+        schedule.setSh_group(group);
+
+        scheduleDAO.update(schedule);
+
+        return "redirect:/index";
     }
+
 
 //    @PostMapping("/removeSchedule")
 //    public String removeSchedulePage(@RequestParam(name = "scheduleId") Long scheduleId) {

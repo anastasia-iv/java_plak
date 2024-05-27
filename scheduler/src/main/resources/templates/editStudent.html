@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Редактирование информации о студенте</title>
 </head>
 <body>
+
+<div th:replace="general :: page-header"></div>
+
+<div class="indent">
+    <form method="post" action="/saveStudent">
+        <input type="hidden" name="studentId" th:value="${student.id}"/>
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${student.name}" required/>
+        </div>
+        <div class="form-group">
+            <label for="flow">Поток</label>
+            <input type="number" class="form-control" id="flow" name="flow" th:value="${student.flow}" required/>
+        </div>
+        <div class="form-group">
+            <label for="group">Группа</label>
+            <input type="number" class="form-control" id="group" name="group" th:value="${student.group}"/>
+        </div>
+        <div class="form-group">
+            <label for="year">Год обучения</label>
+            <input type="number" class="form-control" id="year" name="year" th:value="${student.year}"/>
+        </div>
+        <div class="form-group">
+            <label for="average">Средний балл</label>
+            <input type="number" step="0.01" class="form-control" id="average" name="average" th:value="${student.average}"/>
+        </div>
+        <div class="form-group">
+            <label for="portfolio">Портфолио</label>
+            <input type="text" class="form-control" id="portfolio" name="portfolio" th:value="${student.portfolio}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
 
 </body>
 </html>

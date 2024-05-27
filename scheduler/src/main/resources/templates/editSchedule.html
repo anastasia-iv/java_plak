@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+    <title>Редактирование расписания</title>
 </head>
 <body>
+
+<div class="indent">
+    <form method="post" action="/saveSchedule">
+        <input type="hidden" name="scheduleId" th:value="${schedule.id}" />
+
+        <div class="form-group">
+            <label for="weekday">День недели</label>
+            <input type="text" class="form-control" id="weekday" name="weekday" th:value="${schedule.weekday}" required>
+        </div>
+        <div class="form-group">
+            <label for="time">Время</label>
+            <input type="text" class="form-control" id="time" name="time" th:value="${schedule.time}" required>
+        </div>
+        <div class="form-group">
+            <label for="teacherId">ID преподавателя</label>
+            <input type="number" class="form-control" id="teacherId" name="teacherId" th:value="${schedule.tc_id.teacher.id}" required>
+        </div>
+        <div class="form-group">
+            <label for="courseId">ID курса</label>
+            <input type="number" class="form-control" id="courseId" name="courseId" th:value="${schedule.tc_id.course.id}" required>
+        </div>
+        <div class="form-group">
+            <label for="auditoriumId">ID аудитории</label>
+            <input type="number" class="form-control" id="auditoriumId" name="auditoriumId" th:value="${schedule.auditorium_id.id}" required>
+        </div>
+        <div class="form-group">
+            <label for="group">Группа</label>
+            <input type="text" class="form-control" id="group" name="group" th:value="${schedule.sh_group}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
 
 </body>
 </html>

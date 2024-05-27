@@ -148,6 +148,7 @@
     <table class="table table-bordered table-warning">
         <thead class="thead-dark">
         <tr>
+            <th scope="col"> </th>
             <th scope="col"> День недели</th>
             <th scope="col"> Время </th>
             <th scope="col"> Курс</th>
@@ -173,8 +174,13 @@
                 <span th:text="${schedule.getTime()}"> </span>
             </td>
             <td>
-                <a th:href="'/course?courseId=' + ${schedule.getTc_id.getCourse()}">
+                <a th:href="'/course?courseId=' + ${schedule.getTc_id.getCourse().getId()}">
                     <span th:text="${schedule.getTc_id.getCourse().getName()}"> </span>
+                </a>
+            </td>
+            <td>
+                <a th:href="'/teacher?teacherId=' + ${schedule.getTc_id.getTeacher().getId()}">
+                    <span th:text="${schedule.getTc_id.getTeacher().getName()}"> </span>
                 </a>
             </td>
             <td>

@@ -11,6 +11,8 @@ import ru.msu.cmc.scheduler.DAO.impl.StudentDAOImpl;
 import ru.msu.cmc.scheduler.models.Student;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class StudentController {
@@ -62,29 +64,36 @@ public class StudentController {
 
     @PostMapping("/saveStudent")
     public String saveStudentPage(@RequestParam(name = "studentId") Integer studentId,
-                                 @RequestParam(name = "name") String name,
-                                 @RequestParam(name = "flow") Integer flow,
-                                 @RequestParam(name = "group") Integer group,
-                                 @RequestParam(name = "year") Integer year,
-                                 @RequestParam(name = "average") Float average,
-                                 @RequestParam(name = "portfolio", required = false) String portfolio,
-                                 Model model) {
+                                  @RequestParam(name = "name") String name,
+                                  @RequestParam(name = "flow") Integer flow,
+                                  @RequestParam(name = "group") Integer group,
+                                  @RequestParam(name = "year") Integer year,
+                                  @RequestParam(name = "average") Float average,
+                                  @RequestParam(name = "portfolio", required = false) String portfolio,
+                                  Model model) {
+        Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+        logger.info("Saving student with id: {}, name: {}, flow: {}, group: {}, year: {}, average: {}, portfolio: {}",
+                studentId, name, flow, group, year, average, portfolio);
+
         Student student = studentDAO.getById(studentId);
-        boolean changeIsSuccessful = false;
 
         if (student != null) {
+            // Обновление существующего студента
             student.setName(name);
             student.setFlow(flow);
             student.setGroup(group);
             student.setYear(year);
             student.setAverage(average);
             student.setPortfolio(portfolio);
+            studentDAO.update(student); // Сохранение изменений
         } else {
+            // Создание нового студента
             student = new Student(studentId, name, flow, group, year, average, portfolio);
+            studentDAO.save(student); // Сохранение нового студента
         }
 
-        model.addAttribute("error_msg", "Данные не сохранены");
-        return "error";
+        return "redirect:/student?studentId=" + student.getId(); // Перенаправление на страницу с информацией о студенте
     }
 
 //    @PostMapping("/removeStudent")

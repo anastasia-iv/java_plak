@@ -1,5 +1,7 @@
 package ru.msu.cmc.scheduler.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,6 +70,11 @@ public class CourseController {
                                   @RequestParam(name = "flow") Integer flow,
                                   @RequestParam(name = "extra_course") String extra_course,
                                   Model model) {
+        Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+        logger.info("Saving student with id: {}, name: {}, type: {}, year: {}, flow: {}, extra_courses: {}",
+                courseId, name, type, year, flow, extra_course);
+
         Course course = courseDAO.getById(courseId);
         boolean changeIsSuccessful = false;
 
@@ -77,12 +84,14 @@ public class CourseController {
             course.setYear(year);
             course.setFlow(flow);
             course.setExtra_course(extra_course);
+            courseDAO.update(course);
         } else {
             course = new Course(courseId, name, type, year, flow, extra_course);
+            courseDAO.save(course);
         }
 
         model.addAttribute("error_msg", "Данные не сохранены");
-        return "error";
+        return "redirect:/course?courseId=" + course.getId();
     }
 
 //    @PostMapping("/removeCourse")

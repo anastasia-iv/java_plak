@@ -1,5 +1,7 @@
 package ru.msu.cmc.scheduler.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,20 +69,25 @@ public class TeacherController {
                                  @RequestParam(name = "cathedra", required = false) String cathedra,
                                  @RequestParam(name = "academic_title", required = false) String academic_title,
                                  Model model) {
+        Logger logger = LoggerFactory.getLogger(HomeController.class);
+        logger.info("Saving teacher with id: {}, name: {}, mail: {}, cathedra: {}, academic_title: {}",
+                teacherId, name, mail, cathedra, academic_title);
+
         Teacher teacher = teacherDAO.getById(teacherId);
-        boolean changeIsSuccessful = false;
 
         if (teacher != null) {
             teacher.setName(name);
             teacher.setMail(mail);
             teacher.setCathedra(cathedra);
             teacher.setAcademic_title(academic_title);
+            teacherDAO.update(teacher);
         } else {
             teacher = new Teacher(teacherId, name, mail, cathedra, academic_title);
+            teacherDAO.save(teacher);
         }
 
-        model.addAttribute("error_msg", "Данные не сохранены");
-        return "error";
+        return "redirect:/teacher?teacherId=" + teacher.getId(); // Перенаправление на страницу с информацией о студенте
+
     }
 
 //    @PostMapping("/removeTeacher")
