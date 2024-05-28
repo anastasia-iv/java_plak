@@ -18,9 +18,9 @@
 
 <div class="indent">
     <br>
+    <h4 th:text="${teacher.getName()}"></h4>
     <table class="table table-bordered table-warning">
         <thead class="thead-dark">
-        <h4 th:text="${teacher.getName()}"></h4>
         <tr>
             <th scope="col">  Название курса</th>
             <th scope="col">  Тип курса</th>
@@ -44,7 +44,7 @@
         </tbody>
     </table>
 </div>
-
+<div th:replace="general :: site-footer"></div>
 <div th:replace="general :: site-script"></div>
 
 </body>

@@ -11,14 +11,14 @@
             margin-top: 20px;
         }
     </style>
-    <title>Редактирование информации о студенте</title>
+    <title>Редактирование информации о преподавателе</title>
 </head>
 <body>
 
 <div th:replace="general :: page-header"></div>
 
 <div class="indent">
-    <form method="post" action="/saveTeacher">
+    <form method="post" th:action="@{saveTeacher}">
         <input type="hidden" name="studentId" th:value="${teacher.id}"/>
         <div class="form-group">
             <label for="name">Имя</label>
