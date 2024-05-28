@@ -145,6 +145,40 @@
 
 <div class="indent">
     <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form method="get" action="/filteredSchedule" class="mb-3">
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="weekday">День недели</label>
+                        <input type="text" class="form-control" id="weekday" name="weekday" placeholder="Введите день недели">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="sh_group">Группа</label>
+                        <input type="text" class="form-control" id="sh_group" name="sh_group" placeholder="Введите группу">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="year">Курс</label>
+                        <input type="text" class="form-control" id="year" name="year" placeholder="Введите курс">
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <button type="submit" class="btn btn-primary mt-4">Применить фильтр</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="button-container">
+                <a href="/currentSchedule" class="btn btn-primary">Показать текущее расписание</a>
+            </div>
+            <form method="get" action="/editSchedule">
+                <button id="addScheduleButton" type="submit" class="btn btn-primary">Добавить ячейку расписания</button>
+            </form>
+        </div>
+    </div>
     <table class="table table-bordered table-warning">
         <thead class="thead-dark">
         <tr>
@@ -194,9 +228,6 @@
         </tr>
         </tbody>
 
-        <form method="get" action="/editSchedule">
-            <button id="addScheduleButton" type="submit" class="btn btn-primary">Добавить ячейку расписания</button>
-        </form>
     </table>
 </div>
 

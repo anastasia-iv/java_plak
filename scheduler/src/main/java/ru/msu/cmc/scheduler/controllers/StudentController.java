@@ -42,21 +42,37 @@ public class StudentController {
         return "student";
     }
 
+//    @GetMapping("/editStudent")
+//    public String editStudentPage(@RequestParam(name = "studentId", required = false) Integer studentId, Model model) {
+//        if (studentId == null) {
+//            model.addAttribute("student", new Student());
+//            model.addAttribute("studentService", studentDAO);
+//            return "editStudent";
+//        }
+//
+//        Student student = studentDAO.getById(studentId);
+//
+//        if (student == null) {
+//            model.addAttribute("error_msg", "В базе нет студента с ID = " + studentId);
+//            return "error";
+//        }
+//
+//        model.addAttribute("student", student);
+//        model.addAttribute("studentService", studentDAO);
+//        return "editStudent";
+//    }
     @GetMapping("/editStudent")
     public String editStudentPage(@RequestParam(name = "studentId", required = false) Integer studentId, Model model) {
+        Student student;
         if (studentId == null) {
-            model.addAttribute("student", new Student());
-            model.addAttribute("studentService", studentDAO);
-            return "editStudent";
+            student = new Student();
+        } else {
+            student = studentDAO.getById(studentId);
+            if (student == null) {
+                model.addAttribute("error_msg", "В базе нет студента с ID = " + studentId);
+                return "error";
+            }
         }
-
-        Student student = studentDAO.getById(studentId);
-
-        if (student == null) {
-            model.addAttribute("error_msg", "В базе нет студента с ID = " + studentId);
-            return "error";
-        }
-
         model.addAttribute("student", student);
         model.addAttribute("studentService", studentDAO);
         return "editStudent";
@@ -78,22 +94,31 @@ public class StudentController {
 
         Student student = studentDAO.getById(studentId);
 
-        if (student != null) {
-            // Обновление существующего студента
-            student.setName(name);
-            student.setFlow(flow);
-            student.setGroup(group);
-            student.setYear(year);
-            student.setAverage(average);
-            student.setPortfolio(portfolio);
-            studentDAO.update(student); // Сохранение изменений
+        if (studentId != null) {
+            student = studentDAO.getById(studentId);
+            if (student == null) {
+                model.addAttribute("error_msg", "В базе нет студента с ID = " + studentId);
+                return "error";
+            }
         } else {
-            // Создание нового студента
-            student = new Student(studentId, name, flow, group, year, average, portfolio);
+            student = new Student();
+        }
+
+        student.setName(name);
+        student.setFlow(flow);
+        student.setGroup(group);
+        student.setYear(year);
+        student.setAverage(average);
+        student.setPortfolio(portfolio);
+
+        if (studentId != null) {
+            studentDAO.update(student); // Сохранение изменений для существующего студента
+        } else {
             studentDAO.save(student); // Сохранение нового студента
         }
 
-        return "redirect:/student?studentId=" + student.getId(); // Перенаправление на страницу с информацией о студенте
+//        return "redirect:/student?studentId=" + student.getId();
+        return "redirect:/students";
     }
 
 //    @PostMapping("/removeStudent")

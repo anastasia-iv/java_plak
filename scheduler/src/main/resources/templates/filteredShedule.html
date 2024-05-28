@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtered Schedule</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Filtered Schedule</h2>
+
+    <!-- Форма фильтрации -->
+    <form th:action="@{/filterSchedule}" method="get">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="weekday">Weekday</label>
+                <input type="text" class="form-control" id="weekday" name="weekday">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="group">Group</label>
+                <input type="text" class="form-control" id="group" name="group">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" id="year" name="year">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <!-- Отображение результатов фильтрации -->
+    <div class="mt-4">
+        <h4>Filtered Schedule Results</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Weekday</th>
+                <th scope="col">Time</th>
+                <!-- Другие столбцы расписания -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Здесь будут строки с результатами фильтрации -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

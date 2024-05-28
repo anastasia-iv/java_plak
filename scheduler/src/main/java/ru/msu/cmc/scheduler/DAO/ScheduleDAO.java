@@ -8,6 +8,6 @@ public interface ScheduleDAO extends CommonDAO<Schedule, Integer> {
 
     List<Schedule> getCurrentSchedule();
 
-    List<Schedule> getScheduleByFilter(String weekday, int sh_group, int year);
+    List<Schedule> getScheduleByFilter(String weekday, Integer sh_group, Integer year);
 
 }

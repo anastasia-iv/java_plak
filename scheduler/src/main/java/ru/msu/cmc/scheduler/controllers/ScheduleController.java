@@ -32,6 +32,14 @@ public class ScheduleController {
         return "index";
     }
 
+    @GetMapping("/currentSchedule")
+    public String getCurrentSchedule(Model model) {
+        List<Schedule> schedules = scheduleDAO.getCurrentSchedule();
+        model.addAttribute("schedules", schedules);
+        return "index"; // assuming your main page template is named 'main.html'
+    }
+
+
     @GetMapping("/schedule")
     public String schedulePage(@RequestParam(name = "scheduleId") Integer scheduleId, Model model) {
         Schedule schedule = scheduleDAO.getById(scheduleId);
@@ -64,6 +72,18 @@ public class ScheduleController {
         model.addAttribute("schedule", schedule);
         model.addAttribute("scheduleService", scheduleDAO);
         return "editSchedule";
+    }
+
+    @GetMapping("/filteredSchedule")
+    public String getFilteredSchedule(
+            @RequestParam(value = "weekday", required = false) String weekday,
+            @RequestParam(value = "sh_group", required = false) Integer sh_group,
+            @RequestParam(value = "year", required = false) Integer year,
+            Model model) {
+
+        List<Schedule> schedules = scheduleDAO.getScheduleByFilter(weekday, sh_group, year);
+        model.addAttribute("schedules", schedules);
+        return "index"; // assuming your main page template is named 'main.html'
     }
 
     @PostMapping("/saveSchedule")

@@ -17,8 +17,11 @@
 <div th:replace="general :: page-header"> </div>
 
 <div class="indent">
-
     <table class="table table-bordered table-warning">
+        <form method="get" action="/editStudent">
+            <button id="addStudentButton" type="submit" class="btn btn-primary">Добавить студента</button>
+        </form>
+        <br>
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Полное имя</th>
@@ -42,11 +45,6 @@
 
         </tbody>
     </table>
-
-    <br>
-    <form method="get" action="/editStudent">
-        <button id="addStudentButton" type="submit" class="btn btn-primary">Добавить студента</button>
-    </form>
 </div>
 
 <div th:replace="general :: site-script"></div>

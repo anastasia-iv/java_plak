@@ -50,14 +50,35 @@ public class ScheduleDAOImpl extends CommonDAOImpl<Schedule, Integer> implements
 
     @Override
     @Transactional
-    public List<Schedule> getScheduleByFilter(String weekday, int sh_group, int year) {
+    public List<Schedule> getScheduleByFilter(String weekday, Integer sh_group, Integer year) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();) {
-            TypedQuery<Schedule> query = session.createQuery("SELECT st FROM Schedule st WHERE st.weekday = :weekday AND st.sh_group = :sh_group AND st.year = :year", Schedule.class);
-            query.setParameter("weekday", weekday);
-            query.setParameter("sh_group", sh_group);
-            query.setParameter("year", year);
+            StringBuilder queryString = new StringBuilder("SELECT st FROM Schedule st WHERE 1=1");
+
+            if (weekday != null && !weekday.isEmpty()) {
+                queryString.append(" AND st.weekday = :weekday");
+            }
+            if (sh_group != null) {
+                queryString.append(" AND st.sh_group = :sh_group");
+            }
+            if (year != null) {
+                queryString.append(" AND st.year = :year");
+            }
+
+            TypedQuery<Schedule> query = session.createQuery(queryString.toString(), Schedule.class);
+
+            if (weekday != null && !weekday.isEmpty()) {
+                query.setParameter("weekday", weekday);
+            }
+            if (sh_group != null) {
+                query.setParameter("sh_group", sh_group);
+            }
+            if (year != null) {
+                query.setParameter("year", year);
+            }
+
             return query.getResultList();
         }
     }
+
 
 }
