@@ -28,7 +28,7 @@ public class CommonDAOImpl<T extends CommonEntity<ID>, ID> implements CommonDAO<
     public void save(T entity) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();) {
             session.beginTransaction();
-            session.merge(entity);
+            session.persist(entity);
             session.getTransaction().commit();
         }
     }

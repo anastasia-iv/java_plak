@@ -20,6 +20,7 @@
     <br>
     <table class="table table-bordered table-warning">
         <thead class="thead-dark">
+        <h4 th:text="${teacher.getName()}"></h4>
         <tr>
             <th scope="col">  Название курса</th>
             <th scope="col">  Тип курса</th>
@@ -27,7 +28,7 @@
         </thead>
         <tbody>
         <tr th:if="${courses.isEmpty()}">
-            <td colspan="6"> В базе отсутствует информация о курсах. <a href="/editCourse">Добавить?</a></td>
+            <td colspan="6"> У данного преподавателя отсутствуют занятия. <a href="/editCourse">Добавить?</a></td>
         </tr>
         <tr th:each="course : ${courses}">
             <td>

@@ -7,7 +7,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-import ru.msu.cmc.scheduler.DAO.StudentDAO;
+import ru.msu.cmc.scheduler.DAO.TeacherDAO;
 import ru.msu.cmc.scheduler.models.Student;
 import ru.msu.cmc.scheduler.utils.HibernateSessionFactoryUtil;
 import ru.msu.cmc.scheduler.models.Course;
@@ -35,4 +35,13 @@ public class Teacher_coursesDAOImpl extends CommonDAOImpl<Teacher_courses, Integ
         }
     }
 
+    @Override
+    public List<Course> findCoursesByTeacherId(Integer teacherId) {
+        try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            TypedQuery<Course> query = session.createQuery(
+                    "SELECT tc.course FROM Teacher_courses tc WHERE tc.teacher.id = :teacherId", Course.class);
+            query.setParameter("teacherId", teacherId);
+            return query.getResultList();
+        }
+    }
 }

@@ -34,6 +34,10 @@
                 <input type="hidden" name="teacherId" th:value="${teacher.getId()}"/>
                 <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию о преподавателе</button>
             </form>
+            <form method="get" action="/teacherСourses">
+                <input type="hidden" name="teacherId" th:value="${teacher.getId()}"/>
+                <button id="viewCoursesButton" type="submit" class="btn btn-secondary">Просмотреть курсы преподавателя</button>
+            </form>
 <!--            <form method="post" action="/removeTeacher">-->
 <!--                <input type="hidden" name="teacherId" th:value="${teacher.getId()}"/>-->
 <!--                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить преподавателя из базы</button>-->

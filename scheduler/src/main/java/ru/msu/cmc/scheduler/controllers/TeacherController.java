@@ -44,19 +44,16 @@ public class TeacherController {
 
     @GetMapping("/editTeacher")
     public String editTeacherPage(@RequestParam(name = "teacherId", required = false) Integer teacherId, Model model) {
+        Teacher teacher;
         if (teacherId == null) {
-            model.addAttribute("teacher", new Teacher());
-            model.addAttribute("teacherService", teacherDAO);
-            return "editTeacher";
+            teacher = new Teacher(0, "No name", "", "", "");
+        } else {
+            teacher = teacherDAO.getById(teacherId);
+            if (teacher == null) {
+                model.addAttribute("error_msg", "В базе нет человека с ID = " + teacherId);
+                return "error";
+            }
         }
-
-        Teacher teacher = teacherDAO.getById(teacherId);
-
-        if (teacher == null) {
-            model.addAttribute("error_msg", "В базе нет человека с ID = " + teacherId);
-            return "error";
-        }
-
         model.addAttribute("teacher", teacher);
         model.addAttribute("teacherService", teacherDAO);
         return "editTeacher";
@@ -73,19 +70,28 @@ public class TeacherController {
         logger.info("Saving teacher with id: {}, name: {}, mail: {}, cathedra: {}, academic_title: {}",
                 teacherId, name, mail, cathedra, academic_title);
 
-        Teacher teacher = teacherDAO.getById(teacherId);
-
-        if (teacher != null) {
-            teacher.setName(name);
-            teacher.setMail(mail);
-            teacher.setCathedra(cathedra);
-            teacher.setAcademic_title(academic_title);
-            teacherDAO.update(teacher);
+        Teacher teacher;
+        if (teacherId != 0) {
+            teacher = teacherDAO.getById(teacherId);
+            if (teacher == null) {
+                model.addAttribute("error_msg", "В базе нет студента с ID = " + teacherId);
+                return "error";
+            }
         } else {
-            teacher = new Teacher(teacherId, name, mail, cathedra, academic_title);
-            teacherDAO.save(teacher);
+            teacher = new Teacher();
         }
 
+        teacher.setName(name);
+        teacher.setMail(mail);
+        teacher.setCathedra(cathedra);
+        teacher.setAcademic_title(academic_title);
+
+        if (teacherId != 0) {
+            teacherDAO.update(teacher);
+        } else {
+            teacher.setId(null);
+            teacherDAO.save(teacher);
+        }
         return "redirect:/teacher?teacherId=" + teacher.getId(); // Перенаправление на страницу с информацией о студенте
 
     }

@@ -113,6 +113,7 @@ public class StudentController {
         if (studentId != 0) {
             studentDAO.update(student); // Сохранение изменений для существующего студента
         } else {
+            student.setId(null);
             studentDAO.save(student); // Сохранение нового студента
         }
 
