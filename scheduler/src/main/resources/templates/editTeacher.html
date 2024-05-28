@@ -19,7 +19,7 @@
 
 <div class="indent">
     <form method="post" th:action="@{saveTeacher}">
-        <input type="hidden" name="studentId" th:value="${teacher.id}"/>
+        <input type="hidden" name="teacherId" th:value="${teacher.id}"/>
         <div class="form-group">
             <label for="name">Имя</label>
             <input type="text" class="form-control" id="name" name="name" th:value="${teacher.name}" required/>
