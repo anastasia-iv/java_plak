@@ -3,7 +3,7 @@
 <br/>
 
 ## Схема сайта
-![](pic/scheme.png)
+![](pic/site_pages.png)
 
 <br/>
 
